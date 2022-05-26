@@ -1,2 +1,42 @@
-<h1>Store#index</h1>
-<p>Find me in app/views/store/index.html.erb</p>
+<% if notice %>
+  <aside id="notice"><%= notice %></aside>
+<% end %>
+
+<h1>The Catalog</h1>
+<hr>
+<div class="card">
+    <% cache @products do %>
+        <% @products.each do |p| %>
+            <% cache p do %>
+                <div class="card-header">
+                    <h2 class="card-title w-50 d-inline-block"> <%= p.title %> </h2>
+                    <div class="text-end a d-inline-block"><a class="btn btn-primary">Add To Car</a></div> 
+                </div>
+                <div class="card-body row">
+                    <div class="col-md-7 p-5">
+                        <h5>Description:</h5>
+                        <p> <%= p.description %> </p> 
+                    </div>
+                    <div class="col-md-4 col-md-offset-2 m-3 text-end">
+                        <%= image_tag(p.image_url) %>   
+                    </div>  
+                </div>
+                <div class="card-footer text-muted">
+                    <p> <span>Price:</span> <%= number_to_currency(p.price) %> </p> 
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>
+
+<style>
+    img
+    {
+        width: 60%;
+    }
+    .a
+    {
+        width: 40%;
+    }
+</style>
+
